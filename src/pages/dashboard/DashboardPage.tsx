@@ -1,44 +1,62 @@
 import GridLayout, { type Layout } from 'react-grid-layout';
 import { GRID_CONFIG } from '../../shared/config';
 import { Card } from '../../entities/card/ui';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { AddCard } from '../../features/cardCRUD/ui';
+import { useUnit } from 'effector-react';
+import { $cards } from '../../features/cardCRUD/model';
 
 export const DashboardPage = () => {
-  const [layout, setLayout] = useState<Layout[]>([
-    { i: 'a', x: 0, y: 0, w: 3, h: 2, minW: 2, minH: 1 },
-    { i: 'b', x: 3, y: 0, w: 3, h: 2, minW: 2, minH: 1 },
-    { i: 'c', x: 6, y: 0, w: 3, h: 2, minW: 2, minH: 1 },
-  ]);
+  const cards = useUnit($cards);
+  const [layout, setLayout] = useState<Layout[]>(
+    cards.length > 0
+      ? cards.map((card) => ({
+          i: card.id,
+          x: card.x,
+          y: card.y,
+          w: card.w,
+          h: card.h,
+          minW: 2,
+          minH: 1,
+        }))
+      : []
+  );
 
-  const onLayoutChange = (newLayout: Layout[]) => {
-    setLayout(newLayout);
-  };
+  useEffect(() => {
+    setLayout(
+      cards.map((card) => ({
+        i: card.id,
+        x: card.x,
+        y: card.y,
+        w: card.w,
+        h: card.h,
+        minW: 2,
+        minH: 1,
+      }))
+    );
+  }, [cards]);
 
   return (
     <div className="w-full h-full">
       <GridLayout
         className="layout w-full"
         layout={layout}
-        cols={12}
+        cols={GRID_CONFIG.cols}
         rowHeight={GRID_CONFIG.row_height}
         width={1200}
         margin={GRID_CONFIG.margin}
         containerPadding={GRID_CONFIG.container_padding}
-        onLayoutChange={onLayoutChange}
         isDraggable={true}
         isResizable={true}
         compactType="vertical"
       >
-        <div key="a">
-          <Card id="a" title="Карточка A" content="Содержимое карточки A" x={0} y={0} w={3} h={2} />
-        </div>
-        <div key="b">
-          <Card id="b" title="Карточка B" content="Содержимое карточки B" x={3} y={0} w={3} h={2} />
-        </div>
-        <div key="c">
-          <Card id="c" title="Карточка C" content="Содержимое карточки C" x={6} y={0} w={3} h={2} />
-        </div>
+        {cards.map((card) => (
+          <div key={card.id}>
+            <Card {...card} />
+          </div>
+        ))}
       </GridLayout>
+      <AddCard layout={layout} />
     </div>
   );
 };
