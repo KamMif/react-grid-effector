@@ -7,7 +7,6 @@ import {
   changeTitle,
   modalHandler,
 } from '../model';
-import { nanoid } from 'nanoid';
 import type { CardProps } from '../model/types.ts';
 import { type Layout } from 'react-grid-layout';
 import type { ChangeEventHandler, FC } from 'react';
