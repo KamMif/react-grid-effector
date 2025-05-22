@@ -1,15 +1,11 @@
-import './App.css'
-import {DashboardPage} from "./pages/dashboard/ui/DashboardPage.tsx";
-import '../node_modules/react-grid-layout/css/styles.css';
-import '../node_modules/react-resizable/css/styles.css';
+import { DashboardPage } from './pages/dashboard/DashboardPage.tsx';
 
 function App() {
-
   return (
-      <div className="app">
-          <DashboardPage />
-      </div>
-  )
+    <div className="w-full h-full overflow-hidden bg-gray-100">
+      <DashboardPage />
+    </div>
+  );
 }
 
-export default App
+export default App;
