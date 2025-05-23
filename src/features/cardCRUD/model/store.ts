@@ -50,7 +50,6 @@ sample({
       w: clockData.w,
       h: clockData.h,
     };
-    console.log({ newCard });
     return newCard;
   },
   target: [addCard, resetTitle, resetDescription],

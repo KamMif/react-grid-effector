@@ -12,8 +12,8 @@ import { type Layout } from 'react-grid-layout';
 import type { ChangeEventHandler, FC } from 'react';
 import { GRID_CONFIG } from '../../../shared/config';
 import { Button, Modal, TextArea } from '../../../shared/ui';
-import { useUnit } from 'effector-react/effector-react.umd';
 import { Input } from '../../../shared/ui';
+import { useUnit } from 'effector-react';
 
 interface Props {
   layout: Layout[];

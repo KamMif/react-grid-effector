@@ -18,12 +18,17 @@ export const Card: FC<CardProps> = ({ x, h, w, y, title, content, id }) => {
         {title}
         <div
           className="absolute top-1 right-1 z-20 flex items-center justify-center
-                     w-5 h-5 bg-red-500 text-white rounded-full cursor-pointer
-                     hover:bg-red-700 transition-colors duration-200"
+                     w-5 h-5 cursor-pointer"
           onMouseDown={handleDelete(id)}
-          title="Удалить карточку"
         >
-          X
+          <img
+            onMouseDown={handleDelete(id)}
+            width={32}
+            height={32}
+            src="/close.svg"
+            alt="close icon"
+            className="absolute top-1 right-1 z-20"
+          />
         </div>
       </div>
       <div className="p-4 text-gray-700">{content}</div>
